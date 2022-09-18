@@ -1,0 +1,46 @@
+//
+const admin = require('firebase-admin');
+// 1. Download a service account key (JSON file) from your Firebase console and add to the example/scripts directory
+const serviceAccount = require('./google-services.json');
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+// 2. Copy the token for your device that is printed in the console on app start (`flutter run`) for the FirebaseMessaging example
+const token = 'cpI3WPWKN03okGteHuKwiG:APA91bGSWyGdz5r_9Py08f9qua7VLqp3rEQpLIJ68ekkJnQyPrQRBvJoznOSiSoEr9eBfBYATmire8rx7JUoilp0wSrULL8OhGrHTxhc6zs9ufLJ5HBlBmzTnuc9KIoyNHE_guY_-WnH';
+
+// 3. From your terminal, root to example/scripts directory & run `npm install`.
+// 4. Run `npm run send-message` in the example/scripts directory and your app will receive messages in any state; foreground, background, terminated.
+// If you find your messages have stopped arriving, it is extremely likely they are being throttled by the platform. iOS in particular
+// are aggressive with their throttling policy.
+admin
+  .messaging()
+  .sendToDevice(
+    [token],
+    {
+      data: {
+        foo:'bar',
+      },
+      // here i made that to send silent notification so the we prove the created local notification working
+//      notification: {
+//        title: 'BK',
+//        body: 'BK',
+//      },
+    },
+    {
+      // Required for background/terminated app state messages on iOS
+     contentAvailable: true,
+      // Required for background/terminated app state messages on Android
+      priority: 'high',
+    }
+  )
+  .then((res) => {
+    if (res.failureCount) {
+      console.log('Failed', res.results[0].error);
+    } else {
+      console.log('Success');
+    }
+  })
+  .catch((err) => {
+    console.log('Error:', err);
+  });
