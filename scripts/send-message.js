@@ -7,7 +7,7 @@ admin.initializeApp({
 });
 
 // 2. Copy the token for your device that is printed in the console on app start (`flutter run`) for the FirebaseMessaging example
-const token = 'cpI3WPWKN03okGteHuKwiG:APA91bGSWyGdz5r_9Py08f9qua7VLqp3rEQpLIJ68ekkJnQyPrQRBvJoznOSiSoEr9eBfBYATmire8rx7JUoilp0wSrULL8OhGrHTxhc6zs9ufLJ5HBlBmzTnuc9KIoyNHE_guY_-WnH';
+const token = 'YOUR DEVICE FCM TOKEN!';
 
 // 3. From your terminal, root to example/scripts directory & run `npm install`.
 // 4. Run `npm run send-message` in the example/scripts directory and your app will receive messages in any state; foreground, background, terminated.
